@@ -1,0 +1,50 @@
+ <!DOCTYPE html>
+
+<html>
+  <head>
+    <link rel="stylesheet" href="style.css">    
+    <title>Japanese to English Translation</title>
+  </head>
+  <body>
+    <h1>Japanese to English Translation</h1>
+    <p>Enter your text in the left box to see translations in the right box.</p>
+    <div>
+      <textarea id="input-text" rows="10" cols="50"></textarea>
+      <div id="output-text"></div>
+    </div>
+    <script>
+      const inputText = document.getElementById('input-text');
+      const outputText = document.getElementById('output-text');
+      inputText.addEventListener('mouseup', () => {
+        const selectedText = inputText.value.substring(inputText.selectionStart, inputText.selectionEnd);
+        if (selectedText) {
+            outputText.innerHTML += selectedText + "\n"
+            console.log(selectedText)
+            // Look up definition of selectedText and display it in outputText
+
+            fetch('https://cors-anywhere.herokuapp.com/https://jisho.org/api/v1/search/words?keyword=' + selectedText)
+            .then(response => response.json())
+            .then(data => {
+                const json = data
+                const obj = json
+                console.log(obj.data[0].japanese)
+
+                outputText.innerHTML += obj.data[0].japanese[0].reading　+ "\n"
+                outputText.innerHTML += obj.data[0].senses[0].english_definitions[0] + "\n"
+            })
+            .catch(error => {
+                // Handle any errors here
+                console.log(error)
+                console.log(json)
+                console.log(obj)
+                
+            
+        })
+        
+        };
+        });   
+
+    </script>
+      
+  </body>
+</html>
