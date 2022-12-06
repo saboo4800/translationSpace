@@ -22,7 +22,7 @@
             console.log(selectedText)
             // Look up definition of selectedText and display it in outputText
 
-            fetch('https://cors-anywhere.herokuapp.com/https://jisho.org/api/v1/search/words?keyword=' + selectedText)
+            fetch('https://jisho.org/api/v1/search/words?keyword=' + selectedText)
             .then(response => response.json())
             .then(data => {
                 const json = data
